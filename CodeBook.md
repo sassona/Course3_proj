@@ -147,3 +147,30 @@ The complete list of variables of each feature vector is available in 'features.
 ##Required Libraries
 dplyr - this library is requires to successfully run this script
 
+##Data Manipulation and transformations
+1. Load All the necessary file
+  + features - description of columns
+  + activity_labels - the numeric to description matching of the activities
+  + train_subject - the subject associated with the row of training data
+  + train_set - the training data
+  + train_labels - the training activity
+  + test_subject - the subject associated with the row of test data
+  + test_set - the test data
+  + test_labels - the test activity
+2. Merges the training and the test sets to create one data set.
+  + merged the training data by binding the columns of the train_subject,train_labels, & train_set together
+  + merged the test data by binding the columns of the test_subject, test_labels, & test_set together
+  + finally merged the tables into a full data table using rbind
+3. Extracts only the measurements on the mean and standard deviation for each measurement. 
+  + we took the features table that loaded above and found all the columns that match on mean() and std() using grep to search for the terms separately and then binding the rows together
+  + Then we sorted the rows and created a new column matching the new column location in the full dataset.
+  + using this new transposed clumn number we pull the required columns (1-68) above
+4. Uses descriptive activity names to name the activities in the data set
+  + We use the dplyr package here to do a left join with the activities table to get the right labels for the code. This creates a new column.  
+  + We then replace the old activities column with the new generated column with the lables and remove the extra column.
+5. Appropriately labels the data set with descriptive variable names. 
+  + we use the subset table generated above to table the columns appropriately
+6. From the data set in step 4, creates a second, independent tidy data set with the average of each variable for each activity and each subject.    
+  + We used dplyr to take the above generated subset and group the data by Subject and Activity and then calculate the mean for all the rest of the columns
+  + this new dataset is then printed out to sumarized_tidy_dataset.txt
+
